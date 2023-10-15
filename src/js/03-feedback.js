@@ -32,6 +32,7 @@ form.addEventListener('submit', event => {
 
   const emailValue = emailInput.value;
   const messageValue = messageTextarea.value;
+
   if (emailValue === '' || messageValue === '') {
     alert('Будь ласка, заповніть всі поля форми.');
   } else {
