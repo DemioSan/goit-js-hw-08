@@ -3,7 +3,6 @@ import throttle from 'lodash.throttle';
 const form = document.querySelector('.feedback-form');
 const emailInput = form.querySelector('input[name="email"]');
 const messageTextarea = form.querySelector('textarea[name="message"]');
-
 const storageKey = 'feedback-form-state';
 
 const saveToLocalStorage = () => {
@@ -30,13 +29,21 @@ messageTextarea.addEventListener('input', throttle(saveToLocalStorage, 500));
 
 form.addEventListener('submit', event => {
   event.preventDefault();
-  const state = {
-    email: emailInput.value,
-    message: messageTextarea.value,
-  };
-  console.log(state);
-  localStorage.removeItem(storageKey);
 
-  emailInput.value = '';
-  messageTextarea.value = '';
+  const emailValue = emailInput.value;
+  const messageValue = messageTextarea.value;
+  if (emailValue === '' || messageValue === '') {
+    alert('Будь ласка, заповніть всі поля форми.');
+  } else {
+    const formData = {
+      email: emailValue,
+      message: messageValue,
+    };
+
+    console.log(formData);
+    localStorage.removeItem(storageKey);
+
+    emailInput.value = '';
+    messageTextarea.value = '';
+  }
 });
